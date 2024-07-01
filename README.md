@@ -66,6 +66,8 @@
 
 3. Google Analytics が必要である場合を除き、HTMLファイル内の `<google-codelab-analytics>...</google-codelab-analytics>` タグを取り除く
 
+    - 次の置換を実施してもよい: 「google-codelab-analytics」⇒「!--」
+
 4. 左上の×ボタン (Close ボタン) や右下の Done ボタンのリンク先が `/` になってしまう (2024年7月現在) ため、リンク先を変更する必要があれば下記のコードを各 HTML の `<head>...</head>` 内に記載する
 
     ```html
@@ -78,6 +80,14 @@
     ```
 
     MEMO: いかにもナンセンスな解決方法だが、リンク先をあらかじめ指定する方法が無いらしい (2024年7月現在)。こちらの issue も参照: <https://github.com/googlecodelabs/tools/issues/535>
+
+5. 左下の「Report a mistake」が必要である場合を除き、HTML ファイルの `<style></style>` タグ内に下記のコードを記載する。
+
+    ```css
+    google-codelab #drawer .metadata {
+      display: none;
+    }
+    ```
 
 ## 自動更新の仕組み
 
