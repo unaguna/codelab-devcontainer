@@ -22,8 +22,6 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                // "wk-j.save-and-run"
-                // "emeraldwalk.runonsave"
                 "pucelle.run-on-save",
                 "ritwickdey.liveserver"
             ],
