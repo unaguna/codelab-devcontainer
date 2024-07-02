@@ -27,6 +27,7 @@
             ],
             "settings": {
                 "files.eol": "\n",
+                "liveServer.settings.root": "./dist",
                 "runOnSave.commands": [
                     // export codelab on save
                     {
