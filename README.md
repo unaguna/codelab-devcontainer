@@ -29,28 +29,44 @@
 下記のディレクトリ構成で動作するように、自動ビルドなどを設定しています。
 
 ```plain
-.
-+-- .devcontainer
-|       : Dev Container + vscode の設定ファイル等
+/   : コンテナのルートディレクトリ
 |
-+-- .vscode
-|       : vscode の設定ファイル等
++-- workspace
+|   |   : このプロジェクトがマウントされる領域であり、
+|   |     プロジェクトのワークスペース
+|   |
+|   +-- .devcontainer
+|   |       : Dev Container + vscode の設定ファイル等
+|   |
+|   +-- .vscode
+|   |       : vscode の設定ファイル等
+|   |
+|   +-- src
+|   |       : codelab の元となる markdown ファイルを置く場所
+|   |
+|   +-- dist -> /workspace_local/dist
+|           : 後述する dist ディレクトリへのシンボリックリンク
+|             LiveServer で HTML を見れるようにするために、ここ（ワークスペース）にリンクを張る
 |
-+-- dist
-|       : 生成したHTMLファイルの出力先（出力時に自動生成）
-|
-+-- src
-        : codelab の元となる markdown ファイルを置く場所
++-- workspace_local
+    |
+    +-- dist
+            : 生成したHTMLファイルの出力先（出力時に自動生成）
+              出力後の自動パッチ当てを動作させるために、
+              コンテナ外部からマウントしているワークスペース内ではなく
+              ここにHTMLを出力する。
+              (Windows からマウントしている領域内のファイル監視がうまくいかない)
 ```
 
 ## 作業手順 (執筆時)
 
-1. `./src/` ディレクトリに拡張子が `.md` のファイルを作成・編集する
+1. (初回のみ) `ln -s /workspace_local/dist dist` コマンドでシンボリックリンクを作成する
+2. `./src/` ディレクトリに拡張子が `.md` のファイルを作成・編集する
     - [markdown codelab の書式](https://github.com/googlecodelabs/tools/tree/main/claat/parser/md) に沿って記述し、保存する
     - 保存時、`./dist/` ディレクトリ下に自動で HTML が生成される
-2. vscode のウィンドウの右下の「Go Live」をクリックすることで、Live Server を起動する
-3. Live Server を起動すると自動でブラウザが起動して Live Server のページを表示するので、HTML が生成されたディレクトリを選ぶことで、出力されたHTMLをブラウザで表示する
-4. `.md` ファイルを編集して保存すると、自動でHTMLが再生成される。HTMLが再生成されるとブラウザが自動でリロードして、最新の状態をブラウザで確認できる。
+3. vscode のウィンドウの右下の「Go Live」をクリックすることで、Live Server を起動する
+4. Live Server を起動すると自動でブラウザが起動して Live Server のページを表示するので、HTML が生成されたディレクトリを選ぶことで、出力されたHTMLをブラウザで表示する
+5. `.md` ファイルを編集して保存すると、自動でHTMLが再生成される。HTMLが再生成されるとブラウザが自動でリロードして、最新の状態をブラウザで確認できる。
 
 ## 作業手順 (完成品の取り出し)
 

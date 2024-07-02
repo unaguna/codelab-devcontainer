@@ -32,7 +32,7 @@
                     // export codelab on save
                     {
                         "globMatch": "src/**/*.md",
-                        "command": "claat export -o ./dist ${file}",
+                        "command": "claat export -o /workspace_local/dist ${file}",
                         "runIn": "backend"
                     }
                 ]
