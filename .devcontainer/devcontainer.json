@@ -7,7 +7,7 @@
     "dockerComposeFile": [
         "./docker-compose.yml"
     ],
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "${WORKSPACE}",
     "service": "app",
     // Features to add to the dev container. More info: https://containers.dev/features.
     // "features": {},
@@ -28,6 +28,7 @@
             "settings": {
                 "files.eol": "\n",
                 "liveServer.settings.root": "./dist",
+                "liveServer.settings.wait": 100,
                 "runOnSave.commands": [
                     // export codelab on save
                     {

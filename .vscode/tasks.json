@@ -4,7 +4,7 @@
         {
             "label": "Patch to Dist",
             "type": "shell",
-            "command": "./tools/patch_dist.sh",
+            "command": "./tools/patch_dist_watch.sh",
             "isBackground": true,
             "runOptions": {
                 "runOn": "folderOpen"

@@ -71,9 +71,29 @@
 4. Live Server を起動すると自動でブラウザが起動して Live Server のページを表示するので、HTML が生成されたディレクトリを選ぶことで、出力されたHTMLをブラウザで表示する
 5. `.md` ファイルを編集して保存すると、自動でHTMLが再生成される。HTMLが再生成されるとブラウザが自動でリロードして、最新の状態をブラウザで確認できる。
 
+## ZIP 出力
+
+プロジェクト全体もしくは出力された codelab を ZIP ファイルとして出力することができます。
+
+codelab を ZIP 形式で出力する場合、下記のように [enzip_dist.sh](./tools/enzip_dist.sh) を実行します。
+
+```shell
+./tools/enzip_dist.sh
+```
+
+このコマンドを実行すると `./build` ディレクトリが作成され、その中に ZIP ファイルが出力されます。
+
+codelab 作成プロジェクト全体を ZIP 形式で出力する場合、下記のように [enzip.sh](./tools/enzip.sh) を実行します。
+
+```shell
+./tools/enzip.sh
+```
+
+このコマンドを実行すると `./build` ディレクトリが作成され、その中に ZIP ファイルが出力されます。この ZIP ファイルには生成された codelab そのもの、シンボリックリンク、build ディレクトリ、git リポジトリは含まれません。
+
 ## HTML の自動修正
 
-claat が生成する HTML は一部に問題があるため、[patch_dist.sh](./tools/patch_dist.sh) を使用して一部を下記のように修正します。vscode 起動時にこのスクリプトが自動で実行されるようになっているため、下記の修正は自動で実施されます。
+claat が生成する HTML は一部に問題があるため、[patch_dist.sh](./tools/patch_dist.sh) を使用して一部を下記のように修正します。vscode 起動時にこのスクリプトのラッパー [patch_dist_watch.sh](./tools/patch_dist_watch.sh) が自動で実行されるようになっているため、下記の修正は自動で実施されます。
 
 1. WEBサーバに配備せずファイルシステム上でも使えるようにするために以下の置換を実施する
 
@@ -88,8 +108,8 @@ claat が生成する HTML は一部に問題があるため、[patch_dist.sh](.
     ```html
     <script>
         window.addEventListener('DOMContentLoaded', (event) => {
-            document.getElementById("arrow-back").setAttribute("href", "/url-on-close");
-            document.getElementById("done").setAttribute("href", "/url-on-done");
+            document.getElementById("arrow-back").setAttribute("href", "../");
+            document.getElementById("done").setAttribute("href", "../");
         });
     </script>
     ```

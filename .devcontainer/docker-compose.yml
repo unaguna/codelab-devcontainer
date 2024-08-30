@@ -6,4 +6,6 @@ services:
     stdin_open: true
     command: /bin/bash
     volumes:
-      - ..:/workspace
+      - ..:${WORKSPACE}
+    env_file:
+      - .env
