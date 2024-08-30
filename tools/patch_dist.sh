@@ -12,8 +12,8 @@ URL_DONE='/url-on-done'
 script_tag=`tr -d '\n' <<EOF
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
-        document.getElementById("arrow-back").setAttribute("href", "${URL_CLOSE}");
-        document.getElementById("done").setAttribute("href", "${URL_DONE}");
+        document.getElementById("arrow-back")?.setAttribute("href", "${URL_CLOSE}");
+        document.getElementById("done")?.setAttribute("href", "${URL_DONE}");
     });
 </script>
 EOF
