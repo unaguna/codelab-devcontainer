@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codelabs</title>
+    <script>
+        const codelabList = $CODELAB_JSON;
+
+    </script>
+</head>
+
+<body>
+    <ui>
+        {{ range .Codelabs }}
+        <li><a href="{{.Id}}/">{{.Title}}</a></li>
+        {{ end }}
+    </ui>
+</body>
+
+</html>
