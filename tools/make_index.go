@@ -1,8 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"html/template"
+	"io/fs"
 	"os"
+	"path"
 )
 
 func main() {
@@ -15,7 +18,27 @@ func main() {
 	}
 
 	codelabs := make([]Codelab, 0, 10)
-	codelabs = append(codelabs, Codelab{Title: "title1", Id: "id1"}, Codelab{Title: "title2", Id: "id2"})
+
+	distDir := "./dist"
+	codelabFiles, err := fs.Glob(os.DirFS(distDir), "**/codelab.json")
+	if err != nil {
+		panic(err)
+	}
+
+	for _, filepath := range codelabFiles {
+		file, err := os.Open(path.Join(distDir, filepath))
+		if err != nil {
+			panic(err)
+		}
+
+		var c Codelab
+		if err := json.NewDecoder(file).Decode(&c); err != nil {
+			panic(err)
+		}
+
+		codelabs = append(codelabs, c)
+	}
+
 	model := Model{Codelabs: codelabs}
 
 	tmpl, err := template.ParseFiles("./src/index.html")
