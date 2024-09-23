@@ -46,7 +46,12 @@ func main() {
 		panic(err)
 	}
 
-	err = tmpl.Execute(os.Stdout, model)
+	file, err := os.OpenFile(path.Join(distDir, "index.html"), os.O_WRONLY|os.O_CREATE|os.O_TRUNC, 0644)
+	if err != nil {
+		panic(err)
+	}
+
+	err = tmpl.Execute(file, model)
 	if err != nil {
 		panic(err)
 	}
