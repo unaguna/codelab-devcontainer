@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 監視対象のディレクトリ
-DIR_TO_WATCH=/workspace_local/dist
+DIR_TO_WATCH=${DIST_DIR:-"/workspace_local/dist"}
 
 SCRIPT_DIR=$(cd $(dirname $0); pwd)
 

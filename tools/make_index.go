@@ -18,8 +18,11 @@ type Model struct {
 }
 
 func main() {
+	distDir, ok := os.LookupEnv("DIST_DIR")
+	if !ok {
+		distDir = "/workspace_local/dist"
+	}
 
-	distDir := "./dist"
 	codelabFiles, err := fs.Glob(os.DirFS(distDir), "**/codelab.json")
 	if err != nil {
 		panic(err)
