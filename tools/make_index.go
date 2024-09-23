@@ -14,10 +14,8 @@ func main() {
 		Codelabs []Codelab
 	}
 
-	codelabs := []Codelab{
-		{Title: "title1", Id: "id1"},
-		{Title: "title2", Id: "id2"},
-	}
+	codelabs := make([]Codelab, 0, 10)
+	codelabs = append(codelabs, Codelab{Title: "title1", Id: "id1"}, Codelab{Title: "title2", Id: "id2"})
 	model := Model{Codelabs: codelabs}
 
 	tmpl, err := template.ParseFiles("./src/index.html")
