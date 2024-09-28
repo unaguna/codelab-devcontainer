@@ -20,6 +20,11 @@ type Model struct {
 }
 
 func main() {
+	indexSrcPath, ok := os.LookupEnv("INDEX_SRC_PATH")
+	if !ok {
+		indexSrcPath = "./src/index.html"
+	}
+
 	distDir, ok := os.LookupEnv("DIST_DIR")
 	if !ok {
 		distDir = "/workspace_local/dist"
@@ -36,7 +41,7 @@ func main() {
 	}
 
 	model := Model{Codelabs: codelabs}
-	if err := outputIndexHtml(model, distDir); err != nil {
+	if err := outputIndexHtml(model, distDir, indexSrcPath); err != nil {
 		panic(err)
 	}
 }
@@ -63,8 +68,8 @@ func parseCodelabJsons(codelabJsonFiles []string, distDir string) ([]Codelab, er
 }
 
 // index.html を出力
-func outputIndexHtml(model Model, distDir string) error {
-	tmpl, err := template.ParseFiles("./src/index.html")
+func outputIndexHtml(model Model, distDir string, srcPath string) error {
+	tmpl, err := template.ParseFiles(srcPath)
 	if err != nil {
 		return err
 	}
