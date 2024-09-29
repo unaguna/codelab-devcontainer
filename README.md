@@ -4,6 +4,10 @@
 
 この環境では、保存時に自動で HTML に変換しブラウザに反映するよう各種機能の導入・設定がされています。
 
+## 使い方
+
+[こちら](https://unaguna.github.io/codelab-devcontainer/)を参照してください。
+
 ## 環境構築の前提条件
 
 - docker を使用可能であること (`docker version` が正常に動作すること)
