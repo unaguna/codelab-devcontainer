@@ -219,3 +219,24 @@ codelab-devcontainer の初期設定では、GitHub Actions でデプロイワ�
     ![デプロイボタン](./img/codelab-devconteiner-github-actions.png)
 5. 進捗は画面で確認できます。完了するとページへのリンクが表示されます。
     ![デプロイボタン](./img/codelab-devconteiner-github-actions-result.png)
+
+## ZIP アーカイブ化
+
+GitHub Pages 以外の方法で公開したり他の人へ共有するために、codelab-devcontainer では生成した Codelab やこのプロジェクトそのものを zip にする機能が用意されています。
+
+### Codelab の zip 化
+
+vscode のターミナルを起動して以下のコマンドを実行しましょう。`build` ディレクトリ内に ZIP ファイルが生成されます。
+
+```console
+./tools/enzip_dist.sh
+```
+
+### 執筆環境の zip 化
+
+vscode のターミナルを起動して以下のコマンドを実行することで、このプロジェクトを ZIP 圧縮したものが `build` ディレクトリ内に生成されます。
+
+```console
+./tools/enzip.sh
+```
+
