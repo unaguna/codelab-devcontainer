@@ -168,3 +168,54 @@ vscode の拡張機能を利用して、リアルタイムにプレビューで�
 4. vscode のウィンドウ右下の記述が「Port: <ポート番号>」となるので、ブラウザで `http://localhost:<ポート番号>` にアクセスすると、自動で作成されたインデックスページが表示されます。「サンプル」をクリックすると上で作成した `article.md` をもとに生成された Codelab が表示されます。
 
 5. `article.md` の内容を変更して保存すると、ブラウザが自動で更新され、最新の状態の Codelab が表示されます。
+
+## GitHub Pages で公開
+
+執筆した Codelab は GitHub Pages で公開することができます。このステップでは公開の手順を説明します。
+
+<aside class="negative">
+
+この手順では下記のことが前提になっています。
+
+- GitHub にリポジトリをプッシュしてあること
+- GitHub でリポジトリを公開状態か組織内公開状態にしている、もしくは GitHub Pro 等のプランを利用していること
+    - GitHub Free プランでは、Private リポジトリで GitHub Pages を使用できません
+</aside>
+
+### GitHub Actions 有効化
+
+codelab-devcontainer では GitHub Actions を使用して GitHub Pages をデプロイします。そのため、まずは以下の手順で GitHub Pages のデプロイ方法を設定します。
+
+1. GitHub リポジトリのページをブラウザで開きます。
+2. 「Settings」をクリックして、リポジトリの設定ページを開きます。
+3. 左のメニューから「Pages」をクリックします。
+4. 「Source」プルダウンメニューから「GitHub Actions」をクリックします。
+5. 画面上部に「GitHub Pages source saved.」のように表示されたら設定完了です。
+
+### デプロイワークフローの編集
+
+codelab-devcontainer の初期設定では、GitHub Actions でデプロイワークフローを手動で起動したときにデプロイされます。main ブランチの更新時に自動でデプロイされるようにしたい場合、`./github/workflows/deploy_page.yml` を次のように編集して、main ブランチにプッシュしてください。
+
+- `on.push` についているコメントアウトを外して以下のようにする。
+
+    ```yaml
+    on:
+      # Runs on pushes targeting the default branch
+      push:
+        branches: ["main"]
+
+      # Allows you to run this workflow manually from the Actions tab
+      workflow_dispatch:
+    ```
+
+### 手動デプロイ
+
+上のステップで `on.push` を有効にしていると自動でデプロイされるようになりますが、手動でデプロイすることもできます。手動デプロイは以下の手順で実施します。
+
+1. GitHub リポジトリのページをブラウザで開きます。
+2. 「Actions」をクリックして、GitHub Actions の操作画面を開きます。
+3. 左のメニューから「Deploy Generated Codelabs to Pages」をクリックします。
+4. 「Run workflow」プルダウンをクリックし、「Run workflow」ボタンをクリックすると、デプロイが開始します。
+    ![デプロイボタン](./img/codelab-devconteiner-github-actions.png)
+5. 進捗は画面で確認できます。完了するとページへのリンクが表示されます。
+    ![デプロイボタン](./img/codelab-devconteiner-github-actions-result.png)
