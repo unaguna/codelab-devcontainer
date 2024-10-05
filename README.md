@@ -135,11 +135,10 @@ HTMLの自動生成とブラウザの自動リロードはそれぞれ下記の�
 
 ### HTML の自動生成
 
-HTML の自動生成は、保存時に自動でコマンドを実行できるようにする拡張機能 [Run on Save](https://marketplace.visualstudio.com/items?itemName=pucelle.run-on-save) で実現しています。この拡張機能を使用することで、`./src/**/*.md` に該当するファイルを保存した際に HTML 生成コマンドである `claat export` が自動で実行されるようにしています。
+HTML の自動生成は、保存時に自動でコマンドを実行できるようにする拡張機能 [Run on Save](https://marketplace.visualstudio.com/items?itemName=pucelle.run-on-save) で実現しています。この拡張機能を使用することで、`./src/**/*.md` に該当するファイルを保存した際に [claatw.sh](./tools/claatw.sh) が自動で実行されるようにしていて、その内部で次の処理が実行されます。
 
-Run on Save は単に任意のコマンドを保存時に実行するだけの拡張機能です。そのため、HTML生成のパラメータは `claat export` 実行時の引数として指定します。
-
-また、出力されたファイルは、vscode 起動時に自動で実行されている [patch_dist.sh](./tools/patch_dist.sh) の働きで一部修正されます。
+1. HTML 生成コマンドである `claat export` が実行されます。
+2. 出力されたファイルは [patch_dist.sh](./tools/patch_dist.sh) の働きで一部修正されます。
 
 ### ブラウザの自動更新
 
