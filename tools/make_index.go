@@ -40,17 +40,7 @@ func main() {
 		codelabDirs = append(codelabDirs, distDir)
 	}
 
-	var codelabFiles = make([]string, 0, 10)
-	for _, codelabDir := range codelabDirs {
-		files, err := fs.Glob(os.DirFS(codelabDir), "**/codelab.json")
-		if err != nil {
-			panic(err)
-		}
-		for i, file := range files {
-			files[i] = path.Join(codelabDir, file)
-		}
-		codelabFiles = append(codelabFiles, files...)
-	}
+	var codelabFiles = findCodelabFiles(codelabDirs)
 
 	codelabs, err := parseCodelabJsons(codelabFiles)
 	if err != nil {
@@ -61,6 +51,23 @@ func main() {
 	if err := outputIndexHtml(model, distDir, indexSrcPath); err != nil {
 		panic(err)
 	}
+}
+
+// 引数に指定したディレクトリから codelab.json を探して、そのファイルパスリストを返す。
+func findCodelabFiles(targets []string) []string {
+	var codelabFiles = make([]string, 0, 10)
+	for _, target := range targets {
+		files, err := fs.Glob(os.DirFS(target), "**/codelab.json")
+		if err != nil {
+			panic(err)
+		}
+		for i, file := range files {
+			files[i] = path.Join(target, file)
+		}
+		codelabFiles = append(codelabFiles, files...)
+	}
+
+	return codelabFiles
 }
 
 // 引数に指定した codelab.json ファイルをパースする。
