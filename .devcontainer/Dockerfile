@@ -11,4 +11,6 @@ RUN apt update \
 RUN mkdir /workspace_local && chown vscode:vscode /workspace_local \
     && mkdir /workspace_local/dist && chown vscode:vscode /workspace_local/dist
 
-RUN echo 'export PATH="$PATH:/workspace/tools"' >> /home/vscode/.bashrc
+COPY bashrc_suffix /home/vscode/bashrc_suffix
+RUN cat /home/vscode/bashrc_suffix >> /home/vscode/.bashrc
+RUN rm /home/vscode/bashrc_suffix

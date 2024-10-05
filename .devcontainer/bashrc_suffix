@@ -1,0 +1,6 @@
+PATH="$PATH:/workspace/tools"
+export PATH
+
+if [ ! -L "/workspace/dist" ]; then
+    ln -s "$DIST_DIR" "/workspace/dist"
+fi
