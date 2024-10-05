@@ -35,6 +35,6 @@ tmpfile_list+=( "$tmp_dir" )
 claat export -o "$tmp_dir" $@
 
 find "$tmp_dir" -name index.html | xargs patch_dist.sh
-DIST_DIR="$tmp_dir" make_index.go
+DIST_DIR="$tmp_dir" make_index.go "$DIST_DIR" "$tmp_dir"
 
 cp -r "$tmp_dir/." "$DIST_DIR"
