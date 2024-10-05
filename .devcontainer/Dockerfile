@@ -12,3 +12,5 @@ RUN apt update \
 # 必要に応じて、/workspace_local 内のファイルへのシンボリックリンクを /workspace に作成する
 RUN mkdir /workspace_local && chown vscode:vscode /workspace_local \
     && mkdir /workspace_local/dist && chown vscode:vscode /workspace_local/dist
+
+RUN echo 'export PATH="$PATH:/workspace/tools"' >> /home/vscode/.bashrc
