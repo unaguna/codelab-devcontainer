@@ -97,7 +97,7 @@ codelab 作成プロジェクト全体を ZIP 形式で出力する場合、下�
 
 ## HTML の自動修正
 
-claat が生成する HTML は一部に問題があるため、[patch_dist.sh](./tools/patch_dist.sh) を使用して一部を下記のように修正します。vscode 起動時にこのスクリプトのラッパー [patch_dist_watch.sh](./tools/patch_dist_watch.sh) が自動で実行されるようになっているため、下記の修正は自動で実施されます。
+claat が生成する HTML は一部に問題があるため、claat のラッパー [claatw.sh](./tools/claatw.sh) では [patch_dist.sh](./tools/patch_dist.sh) を使用して一部を下記のように修正します。
 
 1. WEBサーバに配備せずファイルシステム上でも使えるようにするために以下の置換を実施する
 

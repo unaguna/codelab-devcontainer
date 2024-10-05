@@ -25,7 +25,7 @@ trap 'trap - EXIT; remove_tmpfile; exit -1' INT PIPE TERM
 # the output of `gradle projects`
 tmp_dir=$(mktemp -d)
 readonly tmp_dir
-# tmpfile_list+=( "$tmp_dir" )
+tmpfile_list+=( "$tmp_dir" )
 
 
 ################################################################################
