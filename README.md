@@ -60,20 +60,19 @@
     |
     +-- dist
             : 生成したHTMLファイルの出力先（出力時に自動生成）
-              出力後の自動修正を動作させるために、
+              Linux のファイルシステム限定の動作のために、
               コンテナ外部からマウントしているワークスペース内ではなく
               ここにHTMLを出力する。
 ```
 
 ## 作業手順 (執筆時)
 
-1. (初回のみ) `ln -s /workspace_local/dist dist` コマンドでシンボリックリンクを作成する
-2. `./src/` ディレクトリに拡張子が `.md` のファイルを作成・編集する
+1. `./src/` ディレクトリに拡張子が `.md` のファイルを作成・編集する
     - [markdown codelab の書式](https://github.com/googlecodelabs/tools/tree/main/claat/parser/md) に沿って記述し、保存する
     - 保存時、`./dist/` ディレクトリ下に自動で HTML が生成される
-3. vscode のウィンドウの右下の「Go Live」をクリックすることで、Live Server を起動する
-4. Live Server を起動すると自動でブラウザが起動して Live Server のページを表示するので、HTML が生成されたディレクトリを選ぶことで、出力されたHTMLをブラウザで表示する
-5. `.md` ファイルを編集して保存すると、自動でHTMLが再生成される。HTMLが再生成されるとブラウザが自動でリロードして、最新の状態をブラウザで確認できる。
+2. vscode のウィンドウの右下の「Go Live」をクリックすることで、Live Server を起動する
+3. Live Server を起動すると自動でブラウザが起動して Live Server のページを表示するので、HTML が生成されたディレクトリを選ぶことで、出力されたHTMLをブラウザで表示する
+4. `.md` ファイルを編集して保存すると、自動でHTMLが再生成される。HTMLが再生成されるとブラウザが自動でリロードして、最新の状態をブラウザで確認できる。
 
 ## ZIP 出力
 
@@ -97,7 +96,7 @@ codelab 作成プロジェクト全体を ZIP 形式で出力する場合、下�
 
 ## HTML の自動修正
 
-claat が生成する HTML は一部に問題があるため、[patch_dist.sh](./tools/patch_dist.sh) を使用して一部を下記のように修正します。vscode 起動時にこのスクリプトのラッパー [patch_dist_watch.sh](./tools/patch_dist_watch.sh) が自動で実行されるようになっているため、下記の修正は自動で実施されます。
+claat が生成する HTML は一部に問題があるため、claat のラッパー [claatw.sh](./tools/claatw.sh) では [patch_dist.sh](./tools/patch_dist.sh) を使用して一部を下記のように修正します。
 
 1. WEBサーバに配備せずファイルシステム上でも使えるようにするために以下の置換を実施する
 
@@ -130,25 +129,16 @@ claat が生成する HTML は一部に問題があるため、[patch_dist.sh](.
 
 上述の修正が適さない場合は、適宜 [patch_dist.sh](./tools/patch_dist.sh) を改修してください。
 
-### なぜ /workspace_local で自動修正を実施するのか
-
-claat の出力先を /workspace_local/dist に設定しているため、出力後の自動修正もそこで実施されます。しかし、そのように設定する理由は claat の都合ではなく、自動修正の都合によるものです。
-
-ここで自動修正を実施する理由は、/workspace はコンテナの外部の領域をマウントしている場所であり、そのような場所では inotify によるファイル監視が動作しない場合があるためです。2024年7月現在、Windows の Docker Desktop 経由でマウントした際にファイル監視が動作しないことを確認しています。
-
-以上の理由で上述の自動修正処理は /workspace の外で実施する必要があるため、/workspace_local で実施しています。
-
 ## 自動更新の仕組み
 
 HTMLの自動生成とブラウザの自動リロードはそれぞれ下記の拡張機能で実施しています。動作を変更したい場合は該当する設定を編集してください。
 
 ### HTML の自動生成
 
-HTML の自動生成は、保存時に自動でコマンドを実行できるようにする拡張機能 [Run on Save](https://marketplace.visualstudio.com/items?itemName=pucelle.run-on-save) で実現しています。この拡張機能を使用することで、`./src/**/*.md` に該当するファイルを保存した際に HTML 生成コマンドである `claat export` が自動で実行されるようにしています。
+HTML の自動生成は、保存時に自動でコマンドを実行できるようにする拡張機能 [Run on Save](https://marketplace.visualstudio.com/items?itemName=pucelle.run-on-save) で実現しています。この拡張機能を使用することで、`./src/**/*.md` に該当するファイルを保存した際に [claatw.sh](./tools/claatw.sh) が自動で実行されるようにしていて、その内部で次の処理が実行されます。
 
-Run on Save は単に任意のコマンドを保存時に実行するだけの拡張機能です。そのため、HTML生成のパラメータは `claat export` 実行時の引数として指定します。
-
-また、出力されたファイルは、vscode 起動時に自動で実行されている [patch_dist.sh](./tools/patch_dist.sh) の働きで一部修正されます。
+1. HTML 生成コマンドである `claat export` が実行されます。
+2. 出力されたファイルは [patch_dist.sh](./tools/patch_dist.sh) の働きで一部修正されます。
 
 ### ブラウザの自動更新
 

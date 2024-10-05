@@ -2,15 +2,6 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Patch to Dist",
-            "type": "shell",
-            "command": "./tools/patch_dist_watch.sh",
-            "isBackground": true,
-            "runOptions": {
-                "runOn": "folderOpen"
-            }
-        },
-        {
             "label": "Generate Index Page",
             "type": "go",
             "command": "run",

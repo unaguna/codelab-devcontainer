@@ -3,7 +3,7 @@
         // export codelab on save
         {
             "globMatch": "src/**/*.md",
-            "command": "claat export -o ${env:DIST_DIR} ${file}",
+            "command": "claatw.sh ${file}",
             "runIn": "backend"
         }
     ]
