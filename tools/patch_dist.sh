@@ -39,7 +39,7 @@ fi
 # ディレクトリ内の\ファイルの変更を監視し、変更があった場合に文字列置換を実行
 # CAUTION: この変換は何度も実施されることがあるので、冪等になるように注意して作成すること。
 
-echo "${file_list[@]}" | while read -r FILE; do
+for FILE in ${file_list[@]}; do
     if [[ "$FILE" == *.html ]]; then
         sed -i \
             -e "s|^</head>|${script_tag}</head>|" \
