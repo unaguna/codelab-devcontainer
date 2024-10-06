@@ -66,7 +66,7 @@ readonly SCRIPT_NAME
 cd "$WORKSPACE"
 
 # generate codelabs
-find "$SRC_DIR" -name '*.md' | xargs "$SCRIPT_DIR/claatw.sh"
+"$SCRIPT_DIR/claatw.sh"
 
 # create a directory in which the zip created
 mkdir -p "$BUILD_DIR_NAME"
