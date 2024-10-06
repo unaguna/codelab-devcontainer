@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# codelabs の出力先ディレクトリ
-DIST_DIR=${DIST_DIR:-/workspace_local/dist}
+set -u
 
+# codelabs の出力先ディレクトリへ移動
 cd "$DIST_DIR"
 
 # デフォルトのプロトコル
