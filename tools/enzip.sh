@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eu
 
 readonly BUILD_DIR_NAME=build
 readonly zip_path="${WORKSPACE}/${BUILD_DIR_NAME}/${PROJECT_NAME}.zip"
