@@ -28,6 +28,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     env:
+      SRC_DIR: ./src
       DIST_DIR: ./dist
       INDEX_SRC_PATH: ./src/index.html
       HTTP_SCHEME: //
@@ -41,7 +42,7 @@ jobs:
       - name: Make dist directory
         run: mkdir -p $DIST_DIR
       - name: Build by claat
-        run: find src -name '*.md' | xargs claat export -auth 0 -o $DIST_DIR
+        run: find $SRC_DIR -name '*.md' | xargs claat export -auth 0 -o $DIST_DIR
       - name: Modify built dist
         run: ./tools/patch_dist.sh
       - name: Create index page

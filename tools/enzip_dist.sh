@@ -9,7 +9,7 @@ readonly zip_path="${WORKSPACE}/${BUILD_DIR_NAME}/${PROJECT_NAME}-dist.zip"
 cd "$WORKSPACE"
 
 # generate codelabs
-find src -name '*.md' | xargs claat export -o "$DIST_DIR"
+find "$SRC_DIR" -name '*.md' | xargs claat export -o "$DIST_DIR"
 ./tools/patch_dist.sh
 
 # create a directory in which the zip created
