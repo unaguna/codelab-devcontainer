@@ -39,10 +39,12 @@ jobs:
         uses: actions/setup-go@v5.0.2
       - name: Setup claat
         run: go install github.com/googlecodelabs/tools/claat@latest
+      - name: update path
+        run: echo "$PWD/tools" >> $GITHUB_PATH
       - name: Make dist directory
         run: mkdir -p $DIST_DIR
       - name: Build by claat
-        run: ./tools/claatw.sh
+        run: claatw.sh
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
