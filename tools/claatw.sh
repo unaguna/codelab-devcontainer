@@ -40,6 +40,9 @@ fi
 claat export -o "$tmp_dir" ${file_list[@]}
 
 find "$tmp_dir" -name index.html | xargs patch_dist.sh
-DIST_DIR="$tmp_dir" make_index.go "$DIST_DIR" "$tmp_dir"
+if [ -f "${INDEX_SRC_PATH:-/}" ]; then
+    DIST_DIR="$tmp_dir" make_index.go "$DIST_DIR" "$tmp_dir" \
+        && echo $(date --iso=seconds) 'The index page is generated'
+fi
 
 cp -r "$tmp_dir/." "$DIST_DIR"
