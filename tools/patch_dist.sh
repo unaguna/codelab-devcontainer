@@ -46,7 +46,7 @@ for FILE in ${file_list[@]}; do
             -e "s|href=\"//|href=\"$HTTP_SCHEME|g" \
             -e "s| </style>|${style_part}</style>|" \
             -e "s/google-codelab-analytics/!--/g" \
-            "$FILE"
-        echo "$(date --iso=seconds) Replaced in $FILE"
+            "$FILE" \
+        && echo "$(date --iso=seconds) Replaced in $FILE"
     fi
 done
