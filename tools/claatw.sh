@@ -41,8 +41,9 @@ claat export -o "$tmp_dir" ${file_list[@]}
 
 find "$tmp_dir" -name index.html | xargs patch_dist.sh
 if [ -f "${INDEX_SRC_PATH:-/}" ]; then
-    DIST_DIR="$tmp_dir" make_index.go "$DIST_DIR" "$tmp_dir" \
-        && echo $(date --iso=seconds) 'The index page is generated'
+    # run by `go run` because the shebang of make_index.go is not effective in GitHub Actions
+    DIST_DIR="$tmp_dir" go run $(which make_index.go) "$DIST_DIR" "$tmp_dir"
+    echo $(date --iso=seconds) 'The index page is generated'
 fi
 
 cp -r "$tmp_dir/." "$DIST_DIR"
