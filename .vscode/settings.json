@@ -1,5 +1,11 @@
 {
     "runOnSave.commands": [
+        // export custom CSS on save
+        {
+            "globMatch": "src/*.css",
+            "command": "create_custom_css.sh",
+            "runIn": "backend"
+        },
         // export codelab on save
         {
             "globMatch": "src/**/*.md",
