@@ -12,6 +12,12 @@ URL_CLOSE='../'
 # 右下の Done ボタンのリンク先
 URL_DONE='../'
 
+# 追加する <link> タグ
+link_tags=`tr -d '\n' <<EOF
+<link rel="stylesheet" type="text/css" href="../$(basename ${CSS_SRC_PATH})" />
+EOF
+`
+
 # 追加する <script> タグ
 script_tag=`tr -d '\n' <<EOF
 <script>
@@ -42,7 +48,7 @@ fi
 for FILE in ${file_list[@]}; do
     if [[ "$FILE" == *.html ]]; then
         sed -i \
-            -e "s|^</head>|${script_tag}</head>|" \
+            -e "s|^</head>|${link_tags}${script_tag}</head>|" \
             -e "s|href=\"//|href=\"$HTTP_SCHEME|g" \
             -e "s| </style>|${style_part}</style>|" \
             -e "s/google-codelab-analytics/!--/g" \

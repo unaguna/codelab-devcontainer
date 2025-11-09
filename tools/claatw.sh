@@ -45,5 +45,6 @@ if [ -f "${INDEX_SRC_PATH:-/}" ]; then
     DIST_DIR="$tmp_dir" go run $(which make_index.go) "$DIST_DIR" "$tmp_dir"
     echo $(date --iso=seconds) 'The index page is generated'
 fi
+create_custom_css.sh && echo $(date --iso=seconds) 'The custom CSS is generated'
 
 cp -r "$tmp_dir/." "$DIST_DIR"

@@ -31,6 +31,7 @@ jobs:
       SRC_DIR: ./src
       DIST_DIR: ./dist
       INDEX_SRC_PATH: ./src/index.html
+      CSS_SRC_PATH: ./src/custom.css
       HTTP_SCHEME: //
     steps:
       - name: Checkout
